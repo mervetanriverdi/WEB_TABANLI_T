@@ -1,0 +1,403 @@
+{
+  "app": "frontend",
+  "routes": [
+    {
+      "path": "/login",
+      "role": "PUBLIC",
+      "page": {
+        "name": "LoginPage",
+        "path": "frontend/src/pages/Login.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "login",
+          "path": "frontend/src/api/auth.ts",
+          "calls": [
+            "POST /auth/login"
+          ]
+        }
+      ],
+      "notes": [
+        "Giris yapma ve rol bazli yonlendirme."
+      ]
+    },
+    {
+      "path": "/register",
+      "role": "PUBLIC",
+      "page": {
+        "name": "RegisterPage",
+        "path": "frontend/src/pages/Register.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "register",
+          "path": "frontend/src/api/auth.ts",
+          "calls": [
+            "POST /auth/register"
+          ]
+        }
+      ],
+      "notes": [
+        "Kayit formu ve girise yonlendirme."
+      ]
+    },
+    {
+      "path": "/events",
+      "role": "ADMIN|MEMBER",
+      "page": {
+        "name": "EventsPage",
+        "path": "frontend/src/pages/Events.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getEvents",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "GET /events"
+          ]
+        },
+        {
+          "name": "getTags",
+          "path": "frontend/src/api/tags.ts",
+          "calls": [
+            "GET /tags"
+          ]
+        }
+      ],
+      "notes": [
+        "Etkinlik listesi ve etiket filtreleme."
+      ]
+    },
+    {
+      "path": "/events/:id",
+      "role": "ADMIN|MEMBER",
+      "page": {
+        "name": "EventDetailPage",
+        "path": "frontend/src/pages/EventDetail.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getEvent",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "GET /events/:id"
+          ]
+        },
+        {
+          "name": "getEventComments",
+          "path": "frontend/src/api/comments.ts",
+          "calls": [
+            "GET /events/:id/comments"
+          ]
+        },
+        {
+          "name": "createRegistration",
+          "path": "frontend/src/api/registrations.ts",
+          "calls": [
+            "POST /registrations"
+          ]
+        },
+        {
+          "name": "deleteRegistration",
+          "path": "frontend/src/api/registrations.ts",
+          "calls": [
+            "DELETE /registrations/:id"
+          ]
+        },
+        {
+          "name": "getMyRegistrations",
+          "path": "frontend/src/api/registrations.ts",
+          "calls": [
+            "GET /registrations/me"
+          ]
+        },
+        {
+          "name": "createComment",
+          "path": "frontend/src/api/comments.ts",
+          "calls": [
+            "POST /comments"
+          ]
+        },
+        {
+          "name": "deleteComment",
+          "path": "frontend/src/api/comments.ts",
+          "calls": [
+            "DELETE /comments/:id"
+          ]
+        }
+      ],
+      "notes": [
+        "Etkinlik detayi, kayit ol/iptal ve yorum islemleri."
+      ]
+    },
+    {
+      "path": "/my-registrations",
+      "role": "MEMBER",
+      "page": {
+        "name": "MyRegistrationsPage",
+        "path": "frontend/src/pages/MyRegistrations.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getMyRegistrations",
+          "path": "frontend/src/api/registrations.ts",
+          "calls": [
+            "GET /registrations/me"
+          ]
+        },
+        {
+          "name": "deleteRegistration",
+          "path": "frontend/src/api/registrations.ts",
+          "calls": [
+            "DELETE /registrations/:id"
+          ]
+        }
+      ],
+      "notes": [
+        "Uyenin kayitlari listelenir ve iptal edilir."
+      ]
+    },
+    {
+      "path": "/admin/events",
+      "role": "ADMIN",
+      "page": {
+        "name": "AdminEventsPage",
+        "path": "frontend/src/pages/admin/AdminEvents.tsx"
+      },
+      "components": [
+        {
+          "name": "TagMultiSelect",
+          "path": "frontend/src/components/TagMultiSelect.tsx"
+        }
+      ],
+      "api": [
+        {
+          "name": "getEvents",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "GET /events"
+          ]
+        },
+        {
+          "name": "createEvent",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "POST /events"
+          ]
+        },
+        {
+          "name": "updateEvent",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "PATCH /events/:id"
+          ]
+        },
+        {
+          "name": "deleteEvent",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "DELETE /events/:id"
+          ]
+        },
+        {
+          "name": "updateEventTags",
+          "path": "frontend/src/api/events.ts",
+          "calls": [
+            "PUT /events/:id/tags"
+          ]
+        },
+        {
+          "name": "getTags",
+          "path": "frontend/src/api/tags.ts",
+          "calls": [
+            "GET /tags"
+          ]
+        }
+      ],
+      "notes": [
+        "Etkinlik CRUD ve etiket coklu secim."
+      ]
+    },
+    {
+      "path": "/admin/tags",
+      "role": "ADMIN",
+      "page": {
+        "name": "AdminTagsPage",
+        "path": "frontend/src/pages/admin/AdminTags.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getTags",
+          "path": "frontend/src/api/tags.ts",
+          "calls": [
+            "GET /tags"
+          ]
+        },
+        {
+          "name": "createTag",
+          "path": "frontend/src/api/tags.ts",
+          "calls": [
+            "POST /tags"
+          ]
+        },
+        {
+          "name": "updateTag",
+          "path": "frontend/src/api/tags.ts",
+          "calls": [
+            "PATCH /tags/:id"
+          ]
+        },
+        {
+          "name": "deleteTag",
+          "path": "frontend/src/api/tags.ts",
+          "calls": [
+            "DELETE /tags/:id"
+          ]
+        }
+      ],
+      "notes": [
+        "Etiket CRUD."
+      ]
+    },
+    {
+      "path": "/admin/users",
+      "role": "ADMIN",
+      "page": {
+        "name": "AdminUsersPage",
+        "path": "frontend/src/pages/admin/AdminUsers.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getUsers",
+          "path": "frontend/src/api/users.ts",
+          "calls": [
+            "GET /users"
+          ]
+        },
+        {
+          "name": "updateUserRole",
+          "path": "frontend/src/api/users.ts",
+          "calls": [
+            "PATCH /users/:id/role"
+          ]
+        }
+      ],
+      "notes": [
+        "Kullanici listesi ve rol guncelleme."
+      ]
+    },
+    {
+      "path": "/admin/registrations",
+      "role": "ADMIN",
+      "page": {
+        "name": "AdminRegistrationsPage",
+        "path": "frontend/src/pages/admin/AdminRegistrations.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getRegistrations",
+          "path": "frontend/src/api/registrations.ts",
+          "calls": [
+            "GET /registrations"
+          ]
+        }
+      ],
+      "notes": [
+        "Tum kayitlari listeler."
+      ]
+    },
+    {
+      "path": "/admin/comments",
+      "role": "ADMIN",
+      "page": {
+        "name": "AdminCommentsPage",
+        "path": "frontend/src/pages/admin/AdminComments.tsx"
+      },
+      "components": [],
+      "api": [
+        {
+          "name": "getComments",
+          "path": "frontend/src/api/comments.ts",
+          "calls": [
+            "GET /comments"
+          ]
+        },
+        {
+          "name": "deleteComment",
+          "path": "frontend/src/api/comments.ts",
+          "calls": [
+            "DELETE /comments/:id"
+          ]
+        }
+      ],
+      "notes": [
+        "Yorum listesi ve silme."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "AppLayout",
+      "path": "frontend/src/components/AppLayout.tsx",
+      "usedIn": [
+        "/events",
+        "/events/:id",
+        "/my-registrations",
+        "/admin/events",
+        "/admin/tags",
+        "/admin/users",
+        "/admin/registrations",
+        "/admin/comments"
+      ]
+    },
+    {
+      "name": "ProtectedRoute",
+      "path": "frontend/src/components/ProtectedRoute.tsx",
+      "usedIn": [
+        "/events",
+        "/events/:id",
+        "/my-registrations"
+      ]
+    },
+    {
+      "name": "AdminRoute",
+      "path": "frontend/src/components/AdminRoute.tsx",
+      "usedIn": [
+        "/admin/events",
+        "/admin/tags",
+        "/admin/users",
+        "/admin/registrations",
+        "/admin/comments"
+      ]
+    },
+    {
+      "name": "TagMultiSelect",
+      "path": "frontend/src/components/TagMultiSelect.tsx",
+      "usedIn": [
+        "/admin/events"
+      ]
+    }
+  ],
+  "state": [
+    {
+      "name": "auth",
+      "path": "frontend/src/state/auth.tsx",
+      "stores": [
+        "token",
+        "user",
+        "role"
+      ]
+    }
+  ],
+  "notes": [
+    "Frontend route ve API cagri listesi buradan takip edilir."
+  ]
+}

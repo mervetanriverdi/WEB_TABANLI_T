@@ -1,0 +1,66 @@
+Table Role {
+  id int [pk, increment]
+  name varchar [unique]
+}
+
+Table User {
+  id int [pk, increment]
+  name varchar
+  email varchar [unique]
+  passwordHash varchar
+  roleId int [ref: > Role.id]
+  createdAt timestamp
+}
+
+Table Event {
+  id int [pk, increment]
+  title varchar
+  description text
+  location varchar
+  startAt timestamp
+  endAt timestamp
+  capacity int
+  createdById int [ref: > User.id]
+}
+
+Table Tag {
+  id int [pk, increment]
+  name varchar [unique]
+}
+
+Table EventTag {
+  eventId int [ref: > Event.id]
+  tagId int [ref: > Tag.id]
+
+  indexes {
+    (eventId, tagId) [pk]
+  }
+}
+
+Table Registration {
+  id int [pk, increment]
+  userId int [ref: > User.id]
+  eventId int [ref: > Event.id]
+  createdAt timestamp
+
+  indexes {
+    (userId, eventId) [unique]
+  }
+}
+
+Table Comment {
+  id int [pk, increment]
+  userId int [ref: > User.id]
+  eventId int [ref: > Event.id]
+  content text
+  createdAt timestamp
+}
+
+Table EventAdmin {
+  eventId int [ref: > Event.id]
+  adminId int [ref: > User.id]
+
+  indexes {
+    (eventId, adminId) [pk]
+  }
+}

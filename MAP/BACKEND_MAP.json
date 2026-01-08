@@ -1,0 +1,1010 @@
+{
+  "service": "backend",
+  "modules": [
+    {
+      "name": "AppModule",
+      "path": "backend/src/app.module.ts",
+      "controllers": [
+        {
+          "name": "HealthController",
+          "path": "backend/src/health/health.controller.ts"
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "AuthModule",
+      "path": "backend/src/auth/auth.module.ts",
+      "controllers": [
+        {
+          "name": "AuthController",
+          "path": "backend/src/auth/auth.controller.ts"
+        }
+      ],
+      "services": [
+        {
+          "name": "AuthService",
+          "path": "backend/src/auth/auth.service.ts"
+        }
+      ]
+    },
+    {
+      "name": "UsersModule",
+      "path": "backend/src/users/users.module.ts",
+      "controllers": [
+        {
+          "name": "UsersController",
+          "path": "backend/src/users/users.controller.ts"
+        }
+      ],
+      "services": [
+        {
+          "name": "UsersService",
+          "path": "backend/src/users/users.service.ts"
+        }
+      ]
+    },
+    {
+      "name": "RolesModule",
+      "path": "backend/src/roles/roles.module.ts",
+      "controllers": [],
+      "services": []
+    },
+    {
+      "name": "EventsModule",
+      "path": "backend/src/events/events.module.ts",
+      "controllers": [
+        {
+          "name": "EventsController",
+          "path": "backend/src/events/events.controller.ts"
+        }
+      ],
+      "services": [
+        {
+          "name": "EventsService",
+          "path": "backend/src/events/events.service.ts"
+        }
+      ]
+    },
+    {
+      "name": "TagsModule",
+      "path": "backend/src/tags/tags.module.ts",
+      "controllers": [
+        {
+          "name": "TagsController",
+          "path": "backend/src/tags/tags.controller.ts"
+        }
+      ],
+      "services": [
+        {
+          "name": "TagsService",
+          "path": "backend/src/tags/tags.service.ts"
+        }
+      ]
+    },
+    {
+      "name": "RegistrationsModule",
+      "path": "backend/src/registrations/registrations.module.ts",
+      "controllers": [
+        {
+          "name": "RegistrationsController",
+          "path": "backend/src/registrations/registrations.controller.ts"
+        }
+      ],
+      "services": [
+        {
+          "name": "RegistrationsService",
+          "path": "backend/src/registrations/registrations.service.ts"
+        }
+      ]
+    },
+    {
+      "name": "CommentsModule",
+      "path": "backend/src/comments/comments.module.ts",
+      "controllers": [
+        {
+          "name": "CommentsController",
+          "path": "backend/src/comments/comments.controller.ts"
+        }
+      ],
+      "services": [
+        {
+          "name": "CommentsService",
+          "path": "backend/src/comments/comments.service.ts"
+        }
+      ]
+    },
+    {
+      "name": "SeedModule",
+      "path": "backend/src/seed/seed.module.ts",
+      "controllers": [],
+      "services": [
+        {
+          "name": "SeedService",
+          "path": "backend/src/seed/seed.service.ts"
+        }
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "name": "Role",
+      "path": "backend/src/entities/role.entity.ts",
+      "table": "roles",
+      "relations": [
+        {
+          "type": "OneToMany",
+          "target": "User",
+          "field": "users"
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "path": "backend/src/entities/user.entity.ts",
+      "table": "users",
+      "relations": [
+        {
+          "type": "ManyToOne",
+          "target": "Role",
+          "field": "role"
+        },
+        {
+          "type": "OneToMany",
+          "target": "Event",
+          "field": "createdEvents"
+        },
+        {
+          "type": "OneToMany",
+          "target": "Registration",
+          "field": "registrations"
+        },
+        {
+          "type": "OneToMany",
+          "target": "Comment",
+          "field": "comments"
+        },
+        {
+          "type": "OneToMany",
+          "target": "EventAdmin",
+          "field": "managedEvents"
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "path": "backend/src/entities/event.entity.ts",
+      "table": "events",
+      "relations": [
+        {
+          "type": "ManyToOne",
+          "target": "User",
+          "field": "createdBy"
+        },
+        {
+          "type": "OneToMany",
+          "target": "EventTag",
+          "field": "eventTags"
+        },
+        {
+          "type": "OneToMany",
+          "target": "Registration",
+          "field": "registrations"
+        },
+        {
+          "type": "OneToMany",
+          "target": "Comment",
+          "field": "comments"
+        },
+        {
+          "type": "OneToMany",
+          "target": "EventAdmin",
+          "field": "eventAdmins"
+        }
+      ]
+    },
+    {
+      "name": "Tag",
+      "path": "backend/src/entities/tag.entity.ts",
+      "table": "tags",
+      "relations": [
+        {
+          "type": "OneToMany",
+          "target": "EventTag",
+          "field": "eventTags"
+        }
+      ]
+    },
+    {
+      "name": "EventTag",
+      "path": "backend/src/entities/event-tag.entity.ts",
+      "table": "event_tags",
+      "relations": [
+        {
+          "type": "ManyToOne",
+          "target": "Event",
+          "field": "event"
+        },
+        {
+          "type": "ManyToOne",
+          "target": "Tag",
+          "field": "tag"
+        }
+      ]
+    },
+    {
+      "name": "EventAdmin",
+      "path": "backend/src/entities/event-admin.entity.ts",
+      "table": "event_admins",
+      "relations": [
+        {
+          "type": "ManyToOne",
+          "target": "Event",
+          "field": "event"
+        },
+        {
+          "type": "ManyToOne",
+          "target": "User",
+          "field": "admin"
+        }
+      ]
+    },
+    {
+      "name": "Registration",
+      "path": "backend/src/entities/registration.entity.ts",
+      "table": "registrations",
+      "relations": [
+        {
+          "type": "ManyToOne",
+          "target": "User",
+          "field": "user"
+        },
+        {
+          "type": "ManyToOne",
+          "target": "Event",
+          "field": "event"
+        }
+      ]
+    },
+    {
+      "name": "Comment",
+      "path": "backend/src/entities/comment.entity.ts",
+      "table": "comments",
+      "relations": [
+        {
+          "type": "ManyToOne",
+          "target": "User",
+          "field": "user"
+        },
+        {
+          "type": "ManyToOne",
+          "target": "Event",
+          "field": "event"
+        }
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "id": "HEALTH_CHECK",
+      "method": "GET",
+      "path": "/health",
+      "roles": [
+        "PUBLIC"
+      ],
+      "controller": {
+        "name": "HealthController",
+        "path": "backend/src/health/health.controller.ts",
+        "handler": "getHealth"
+      },
+      "service": {
+        "name": "None",
+        "path": "-",
+        "method": "-"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "HealthResponse",
+          "path": "-"
+        }
+      },
+      "notes": [
+        "Saglik kontrolu icin basit yanit."
+      ]
+    },
+    {
+      "id": "AUTH_REGISTER",
+      "method": "POST",
+      "path": "/auth/register",
+      "roles": [
+        "PUBLIC"
+      ],
+      "controller": {
+        "name": "AuthController",
+        "path": "backend/src/auth/auth.controller.ts",
+        "handler": "register"
+      },
+      "service": {
+        "name": "AuthService",
+        "path": "backend/src/auth/auth.service.ts",
+        "method": "register"
+      },
+      "dtos": {
+        "request": {
+          "name": "RegisterDto",
+          "path": "backend/src/auth/dto/register.dto.ts"
+        },
+        "response": {
+          "name": "User",
+          "path": "backend/src/entities/user.entity.ts"
+        }
+      },
+      "notes": [
+        "Varsayilan rol MEMBER olarak atanir."
+      ]
+    },
+    {
+      "id": "AUTH_LOGIN",
+      "method": "POST",
+      "path": "/auth/login",
+      "roles": [
+        "PUBLIC"
+      ],
+      "controller": {
+        "name": "AuthController",
+        "path": "backend/src/auth/auth.controller.ts",
+        "handler": "login"
+      },
+      "service": {
+        "name": "AuthService",
+        "path": "backend/src/auth/auth.service.ts",
+        "method": "login"
+      },
+      "dtos": {
+        "request": {
+          "name": "LoginDto",
+          "path": "backend/src/auth/dto/login.dto.ts"
+        },
+        "response": {
+          "name": "LoginResponseDto",
+          "path": "backend/src/auth/dto/login-response.dto.ts"
+        }
+      },
+      "notes": [
+        "JWT access token ve temel kullanici bilgisi doner."
+      ]
+    },
+    {
+      "id": "EVENTS_LIST",
+      "method": "GET",
+      "path": "/events",
+      "roles": [
+        "ADMIN",
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "EventsController",
+        "path": "backend/src/events/events.controller.ts",
+        "handler": "findAll"
+      },
+      "service": {
+        "name": "EventsService",
+        "path": "backend/src/events/events.service.ts",
+        "method": "findAll"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Event[]",
+          "path": "backend/src/entities/event.entity.ts"
+        }
+      },
+      "notes": [
+        "Etkinlik listesi ve etiketleri gelir. ADMIN kullanicilar sadece kendi olusturduklari veya yetkilendirildikleri etkinlikleri gorur."
+      ]
+    },
+    {
+      "id": "EVENTS_GET",
+      "method": "GET",
+      "path": "/events/:id",
+      "roles": [
+        "ADMIN",
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "EventsController",
+        "path": "backend/src/events/events.controller.ts",
+        "handler": "findOne"
+      },
+      "service": {
+        "name": "EventsService",
+        "path": "backend/src/events/events.service.ts",
+        "method": "findOne"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Event",
+          "path": "backend/src/entities/event.entity.ts"
+        }
+      },
+      "notes": [
+        "Tek etkinlik detayini dondurur. ADMIN kullanicilar sadece kendi olusturduklari veya yetkilendirildikleri etkinlikleri gorur."
+      ]
+    },
+    {
+      "id": "EVENTS_CREATE",
+      "method": "POST",
+      "path": "/events",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "EventsController",
+        "path": "backend/src/events/events.controller.ts",
+        "handler": "create"
+      },
+      "service": {
+        "name": "EventsService",
+        "path": "backend/src/events/events.service.ts",
+        "method": "create"
+      },
+      "dtos": {
+        "request": {
+          "name": "CreateEventDto",
+          "path": "backend/src/events/dto/create-event.dto.ts"
+        },
+        "response": {
+          "name": "Event",
+          "path": "backend/src/entities/event.entity.ts"
+        }
+      },
+      "notes": [
+        "Etkinlik olusturur, createdById JWT uzerinden gelir. adminIds ile etkinlik bazli admin yetkilendirmesi yapilabilir."
+      ]
+    },
+    {
+      "id": "EVENTS_UPDATE",
+      "method": "PATCH",
+      "path": "/events/:id",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "EventsController",
+        "path": "backend/src/events/events.controller.ts",
+        "handler": "update"
+      },
+      "service": {
+        "name": "EventsService",
+        "path": "backend/src/events/events.service.ts",
+        "method": "update"
+      },
+      "dtos": {
+        "request": {
+          "name": "UpdateEventDto",
+          "path": "backend/src/events/dto/update-event.dto.ts"
+        },
+        "response": {
+          "name": "Event",
+          "path": "backend/src/entities/event.entity.ts"
+        }
+      },
+      "notes": [
+        "Etkinligi gunceller. adminIds ile etkinlik bazli admin yetkilendirmesi guncellenebilir. Sadece etkinligi olusturan veya yetkilendirilmis admin'ler guncelleyebilir."
+      ]
+    },
+    {
+      "id": "EVENTS_DELETE",
+      "method": "DELETE",
+      "path": "/events/:id",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "EventsController",
+        "path": "backend/src/events/events.controller.ts",
+        "handler": "remove"
+      },
+      "service": {
+        "name": "EventsService",
+        "path": "backend/src/events/events.service.ts",
+        "method": "remove"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Message",
+          "path": "-"
+        }
+      },
+      "notes": [
+        "Etkinligi siler. Sadece etkinligi olusturan veya yetkilendirilmis admin'ler silebilir."
+      ]
+    },
+    {
+      "id": "EVENTS_UPDATE_TAGS",
+      "method": "PUT",
+      "path": "/events/:id/tags",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "EventsController",
+        "path": "backend/src/events/events.controller.ts",
+        "handler": "updateTags"
+      },
+      "service": {
+        "name": "EventsService",
+        "path": "backend/src/events/events.service.ts",
+        "method": "updateTags"
+      },
+      "dtos": {
+        "request": {
+          "name": "UpdateEventTagsDto",
+          "path": "backend/src/events/dto/update-event-tags.dto.ts"
+        },
+        "response": {
+          "name": "Event",
+          "path": "backend/src/entities/event.entity.ts"
+        }
+      },
+      "notes": [
+        "Etkinlige ait etiket listesini degistirir. Sadece etkinligi olusturan veya yetkilendirilmis admin'ler degistirebilir."
+      ]
+    },
+    {
+      "id": "TAGS_LIST",
+      "method": "GET",
+      "path": "/tags",
+      "roles": [
+        "ADMIN",
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "TagsController",
+        "path": "backend/src/tags/tags.controller.ts",
+        "handler": "findAll"
+      },
+      "service": {
+        "name": "TagsService",
+        "path": "backend/src/tags/tags.service.ts",
+        "method": "findAll"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Tag[]",
+          "path": "backend/src/entities/tag.entity.ts"
+        }
+      },
+      "notes": [
+        "Etiket listesini dondurur."
+      ]
+    },
+    {
+      "id": "TAGS_CREATE",
+      "method": "POST",
+      "path": "/tags",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "TagsController",
+        "path": "backend/src/tags/tags.controller.ts",
+        "handler": "create"
+      },
+      "service": {
+        "name": "TagsService",
+        "path": "backend/src/tags/tags.service.ts",
+        "method": "create"
+      },
+      "dtos": {
+        "request": {
+          "name": "CreateTagDto",
+          "path": "backend/src/tags/dto/create-tag.dto.ts"
+        },
+        "response": {
+          "name": "Tag",
+          "path": "backend/src/entities/tag.entity.ts"
+        }
+      },
+      "notes": [
+        "Yeni etiket olusturur."
+      ]
+    },
+    {
+      "id": "TAGS_UPDATE",
+      "method": "PATCH",
+      "path": "/tags/:id",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "TagsController",
+        "path": "backend/src/tags/tags.controller.ts",
+        "handler": "update"
+      },
+      "service": {
+        "name": "TagsService",
+        "path": "backend/src/tags/tags.service.ts",
+        "method": "update"
+      },
+      "dtos": {
+        "request": {
+          "name": "UpdateTagDto",
+          "path": "backend/src/tags/dto/update-tag.dto.ts"
+        },
+        "response": {
+          "name": "Tag",
+          "path": "backend/src/entities/tag.entity.ts"
+        }
+      },
+      "notes": [
+        "Etiketi gunceller."
+      ]
+    },
+    {
+      "id": "TAGS_DELETE",
+      "method": "DELETE",
+      "path": "/tags/:id",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "TagsController",
+        "path": "backend/src/tags/tags.controller.ts",
+        "handler": "remove"
+      },
+      "service": {
+        "name": "TagsService",
+        "path": "backend/src/tags/tags.service.ts",
+        "method": "remove"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Message",
+          "path": "-"
+        }
+      },
+      "notes": [
+        "Etiketi siler."
+      ]
+    },
+    {
+      "id": "REGISTRATIONS_CREATE",
+      "method": "POST",
+      "path": "/registrations",
+      "roles": [
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "RegistrationsController",
+        "path": "backend/src/registrations/registrations.controller.ts",
+        "handler": "create"
+      },
+      "service": {
+        "name": "RegistrationsService",
+        "path": "backend/src/registrations/registrations.service.ts",
+        "method": "create"
+      },
+      "dtos": {
+        "request": {
+          "name": "CreateRegistrationDto",
+          "path": "backend/src/registrations/dto/create-registration.dto.ts"
+        },
+        "response": {
+          "name": "Registration",
+          "path": "backend/src/entities/registration.entity.ts"
+        }
+      },
+      "notes": [
+        "Uye etkinlige kayit olur."
+      ]
+    },
+    {
+      "id": "REGISTRATIONS_DELETE",
+      "method": "DELETE",
+      "path": "/registrations/:id",
+      "roles": [
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "RegistrationsController",
+        "path": "backend/src/registrations/registrations.controller.ts",
+        "handler": "remove"
+      },
+      "service": {
+        "name": "RegistrationsService",
+        "path": "backend/src/registrations/registrations.service.ts",
+        "method": "remove"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Message",
+          "path": "-"
+        }
+      },
+      "notes": [
+        "Uye kendi kaydini iptal eder."
+      ]
+    },
+    {
+      "id": "REGISTRATIONS_ME",
+      "method": "GET",
+      "path": "/registrations/me",
+      "roles": [
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "RegistrationsController",
+        "path": "backend/src/registrations/registrations.controller.ts",
+        "handler": "findMine"
+      },
+      "service": {
+        "name": "RegistrationsService",
+        "path": "backend/src/registrations/registrations.service.ts",
+        "method": "findMine"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Registration[]",
+          "path": "backend/src/entities/registration.entity.ts"
+        }
+      },
+      "notes": [
+        "Uyenin kendi kayitlarini listeler."
+      ]
+    },
+    {
+      "id": "REGISTRATIONS_LIST",
+      "method": "GET",
+      "path": "/registrations",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "RegistrationsController",
+        "path": "backend/src/registrations/registrations.controller.ts",
+        "handler": "findAll"
+      },
+      "service": {
+        "name": "RegistrationsService",
+        "path": "backend/src/registrations/registrations.service.ts",
+        "method": "findAll"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Registration[]",
+          "path": "backend/src/entities/registration.entity.ts"
+        }
+      },
+      "notes": [
+        "Tum kayitlari listeler."
+      ]
+    },
+    {
+      "id": "COMMENTS_BY_EVENT",
+      "method": "GET",
+      "path": "/events/:id/comments",
+      "roles": [
+        "ADMIN",
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "CommentsController",
+        "path": "backend/src/comments/comments.controller.ts",
+        "handler": "findByEvent"
+      },
+      "service": {
+        "name": "CommentsService",
+        "path": "backend/src/comments/comments.service.ts",
+        "method": "findByEvent"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Comment[]",
+          "path": "backend/src/entities/comment.entity.ts"
+        }
+      },
+      "notes": [
+        "Etkinlige ait yorumlari listeler."
+      ]
+    },
+    {
+      "id": "COMMENTS_CREATE",
+      "method": "POST",
+      "path": "/comments",
+      "roles": [
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "CommentsController",
+        "path": "backend/src/comments/comments.controller.ts",
+        "handler": "create"
+      },
+      "service": {
+        "name": "CommentsService",
+        "path": "backend/src/comments/comments.service.ts",
+        "method": "create"
+      },
+      "dtos": {
+        "request": {
+          "name": "CreateCommentDto",
+          "path": "backend/src/comments/dto/create-comment.dto.ts"
+        },
+        "response": {
+          "name": "Comment",
+          "path": "backend/src/entities/comment.entity.ts"
+        }
+      },
+      "notes": [
+        "Uye yorum olusturur."
+      ]
+    },
+    {
+      "id": "COMMENTS_DELETE",
+      "method": "DELETE",
+      "path": "/comments/:id",
+      "roles": [
+        "ADMIN",
+        "MEMBER"
+      ],
+      "controller": {
+        "name": "CommentsController",
+        "path": "backend/src/comments/comments.controller.ts",
+        "handler": "remove"
+      },
+      "service": {
+        "name": "CommentsService",
+        "path": "backend/src/comments/comments.service.ts",
+        "method": "removeOwn | removeAny"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Message",
+          "path": "-"
+        }
+      },
+      "notes": [
+        "ADMIN her yorumu, MEMBER kendi yorumunu siler."
+      ]
+    },
+    {
+      "id": "COMMENTS_LIST",
+      "method": "GET",
+      "path": "/comments",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "CommentsController",
+        "path": "backend/src/comments/comments.controller.ts",
+        "handler": "findAll"
+      },
+      "service": {
+        "name": "CommentsService",
+        "path": "backend/src/comments/comments.service.ts",
+        "method": "findAll"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "Comment[]",
+          "path": "backend/src/entities/comment.entity.ts"
+        }
+      },
+      "notes": [
+        "Tum yorumlari listeler."
+      ]
+    },
+    {
+      "id": "USERS_LIST",
+      "method": "GET",
+      "path": "/users",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "UsersController",
+        "path": "backend/src/users/users.controller.ts",
+        "handler": "findAll"
+      },
+      "service": {
+        "name": "UsersService",
+        "path": "backend/src/users/users.service.ts",
+        "method": "findAll"
+      },
+      "dtos": {
+        "request": {
+          "name": "None",
+          "path": "-"
+        },
+        "response": {
+          "name": "User[]",
+          "path": "backend/src/entities/user.entity.ts"
+        }
+      },
+      "notes": [
+        "Tum kullanicilari listeler."
+      ]
+    },
+    {
+      "id": "USERS_UPDATE_ROLE",
+      "method": "PATCH",
+      "path": "/users/:id/role",
+      "roles": [
+        "ADMIN"
+      ],
+      "controller": {
+        "name": "UsersController",
+        "path": "backend/src/users/users.controller.ts",
+        "handler": "updateRole"
+      },
+      "service": {
+        "name": "UsersService",
+        "path": "backend/src/users/users.service.ts",
+        "method": "updateRole"
+      },
+      "dtos": {
+        "request": {
+          "name": "UpdateUserRoleDto",
+          "path": "backend/src/users/dto/update-user-role.dto.ts"
+        },
+        "response": {
+          "name": "User",
+          "path": "backend/src/entities/user.entity.ts"
+        }
+      },
+      "notes": [
+        "Kullanici rolunu degistirir."
+      ]
+    }
+  ],
+  "notes": [
+    "Bu dosyadaki notlar ve yollar, ilerleyen bolumlerde guncellenecek."
+  ]
+}
